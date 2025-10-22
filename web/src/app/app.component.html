@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+  <mat-icon>inventory_2</mat-icon>
+  <span class="brand">Inventario</span>
+  <span class="spacer"></span>
+
+  <a mat-button routerLink="/products" routerLinkActive="active">Productos</a>
+  <a mat-button routerLink="/transactions" routerLinkActive="active">Transacciones</a>
+</mat-toolbar>
+
+<main class="container">
+  <router-outlet></router-outlet>
+</main>

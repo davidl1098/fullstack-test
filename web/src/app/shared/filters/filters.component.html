@@ -1,0 +1,32 @@
+<form [formGroup]="form" class="filters">
+  <ng-container *ngIf="fixedProductId == null">
+    <mat-form-field appearance="outline">
+      <mat-label>Producto ID</mat-label>
+      <input matInput type="number" formControlName="productId" />
+    </mat-form-field>
+  </ng-container>
+
+  <mat-form-field>
+    <mat-label>Tipo</mat-label>
+    <mat-select formControlName="type">
+      <mat-option [value]="''">(Todos)</mat-option>
+      <mat-option [value]="1">Compra</mat-option>
+      <mat-option [value]="2">Venta</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Desde</mat-label>
+    <input matInput [matDatepicker]="dp1" formControlName="dateFrom">
+    <mat-datepicker #dp1></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Hasta</mat-label>
+    <input matInput [matDatepicker]="dp2" formControlName="dateTo">
+    <mat-datepicker #dp2></mat-datepicker>
+  </mat-form-field>
+
+  <button mat-stroked-button color="primary" (click)="apply()">Aplicar</button>
+  <button mat-button type="button" (click)="clear()">Limpiar</button>
+</form>

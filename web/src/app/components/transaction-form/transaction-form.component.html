@@ -1,0 +1,44 @@
+<mat-card>
+  <h1>{{ id ? 'Editar' : 'Nueva' }} Transacción</h1>
+<form [formGroup]="form" (ngSubmit)="save()" class="form-stack">
+  <mat-form-field class="w100" appearance="outline">
+    <mat-label>Tipo</mat-label>
+     <mat-select formControlName="type">
+    <mat-option [value]="TransactionType.Purchase">Compra</mat-option>
+    <mat-option [value]="TransactionType.Sale">Venta</mat-option>
+  </mat-select>
+  </mat-form-field>
+
+    <mat-form-field class="w100" appearance="outline">
+      <mat-label>Producto</mat-label>
+      <mat-select formControlName="productId">
+        <mat-option *ngFor="let p of productsList" [value]="p.id">
+          {{ p.name || ('#' + p.id) }} — Stock: {{ p.stock }} (ID: {{ p.id }})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w100" appearance="outline">
+      <mat-label>Cantidad</mat-label>
+      <input matInput type="number" formControlName="quantity" required>
+      <mat-error *ngIf="form.get('quantity')?.hasError('exceedsStock')">
+        Cantidad supera el stock disponible
+        (disp.: {{ form.get('quantity')?.getError('exceedsStock')?.available }}).
+      </mat-error> </mat-form-field>
+
+    <mat-form-field class="w100" appearance="outline">
+      <mat-label>Precio Unitario</mat-label>
+      <input matInput type="number" formControlName="unitPrice" required>
+    </mat-form-field>
+
+    <mat-form-field class="w100" appearance="outline">
+      <mat-label>Detalle</mat-label>
+      <textarea matInput rows="3" formControlName="detail"></textarea>
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" [disabled]="form.invalid">Guardar</button>
+      <button mat-button type="button" (click)="cancel()">Cancelar</button>
+    </div>
+  </form>
+</mat-card>

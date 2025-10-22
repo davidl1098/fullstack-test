@@ -1,0 +1,68 @@
+<mat-card>
+  <div class="header">
+    <h1>Productos</h1>
+    <button mat-raised-button color="primary" (click)="goNew()">
+      <mat-icon>add</mat-icon> Nuevo
+    </button>
+  </div>
+
+  <mat-form-field appearance="outline" class="w100">
+    <mat-label>Buscar por nombre o categoría</mat-label>
+    <input matInput [formControl]="q">
+  </mat-form-field>
+
+  <table mat-table [dataSource]="rows" matSort>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+      <td mat-cell *matCellDef="let r">{{ r.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+      <td mat-cell *matCellDef="let r">{{ r.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Categoría</th>
+      <td mat-cell *matCellDef="let r">{{ r.category }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio</th>
+      <td mat-cell *matCellDef="let r">{{ r.price | currency:'USD' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="stock">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Stock</th>
+      <td mat-cell *matCellDef="let r">{{ r.stock }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef>Imagen</th>
+      <td mat-cell *matCellDef="let p">
+        <img class="thumb" [src]="p.imageUrl || 'assets/no-image.svg'" alt="{{p.name}}" loading="lazy">
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let r">
+        <button mat-icon-button color="accent" (click)="openHistory(r)" matTooltip="Historial">
+          <mat-icon>history</mat-icon>
+        </button>
+        
+        <button mat-icon-button color="primary" [routerLink]="['/products', r.id, 'edit']">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="remove(r.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="cols"></tr>
+    <tr mat-row *matRowDef="let row; columns: cols;"></tr>
+  </table>
+
+  <mat-paginator [length]="total" [pageSize]="10" [pageSizeOptions]="[5,10,20]"></mat-paginator>
+</mat-card>

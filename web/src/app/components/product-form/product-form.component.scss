@@ -1,0 +1,26 @@
+.w100{width:100%}
+.actions{display:flex;gap:12px}
+.image-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 16px;
+  margin: 8px 0 12px;
+}
+.file-label {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px dashed #bbb;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.file-label input[type="file"] { display: none; }
+.muted { color: #6b7280; }
+
+.preview img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.1);
+}
